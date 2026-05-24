@@ -1,4 +1,4 @@
-# Módulo de Funcionários - Projeto Final 2º Bimestre
+# Módulo de Funcionários - Projeto Final 1º Bimestre
 **Grupo 2:** Augusto, Patrick, Jonas, José Rocha
 
 ---
