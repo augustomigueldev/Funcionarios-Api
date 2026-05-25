@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Cargo — Sistema DP{% endblock %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 400px;">
+  <h2>Editar Cargo</h2>
+  <form method="POST" action="/funcionarios/editarCargo/{{ cargo.id }}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome do Cargo</label>
+      <input type="text" class="form-control" name="nome" id="nome" value="{{ cargo.nome }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+    <a href="/funcionarios/cargos" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

@@ -7,5 +7,6 @@ urlpatterns = [
     path('cadastro', views.cadastroFuncionario),
     path('cadastroCargo', views.cadastroCargo),
     path('excluir/<int:id>', views.excluirFuncionario),
+    path('editarCargo/<int:id>', views.editarCargo),
     path('editar/<int:id>', views.editarFuncionario),
 ]
