@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-funcionarios-projeto-2bimestre-chave-secreta-123'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['augusto4d.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
