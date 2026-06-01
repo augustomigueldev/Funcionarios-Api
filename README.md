@@ -65,20 +65,17 @@ funcionarios_project/
 ---
 
 ## Rotas disponíveis
-|---------------------------------------------------------------------------------------|
-| URL                            | O que faz                   | Permissão necessária |
-|-----|--------------------------|-----------------------------|----------------------|
-| /login                         | Tela de login               | Pública              |
-| /logout                        | Encerra a sessão            | Autenticado          |
-| /funcionarios/listar           | Lista todos os funcionários | Autenticado          |
-| /funcionarios/cadastro         | Cadastra novo funcionário   | `add_funcionario`    |
-| /funcionarios/editar/<id>      | Edita um funcionário        | `change_funcionario` |
-| /funcionarios/excluir/<id>     | Exclui um funcionário       | `delete_funcionario` |
-| /funcionarios/cargos           | Lista cargos                | Autenticado          |
-| /funcionarios/cadastroCargo    | Cadastra novo cargo         | `add_cargo`          |
-| /funcionarios/editarCargo/<id> | Edita um cargo              | `change_cargo`       |
-|---------------------------------------------------------------------------------------|
----
+| URL | O que faz | Permissão necessária |
+|-----|-----------|----------------------|
+| `/login` | Tela de login | Pública |
+| `/logout` | Encerra a sessão | Autenticado |
+| `/funcionarios/listar` | Lista todos os funcionários | Autenticado |
+| `/funcionarios/cadastro` | Cadastra novo funcionário | `add_funcionario` |
+| `/funcionarios/editar/<id>` | Edita um funcionário | `change_funcionario` |
+| `/funcionarios/excluir/<id>` | Exclui um funcionário | `delete_funcionario` |
+| `/funcionarios/cargos` | Lista cargos | Autenticado |
+| `/funcionarios/cadastroCargo` | Cadastra novo cargo | `add_cargo` |
+| `/funcionarios/editarCargo/<id>` | Edita um cargo | `change_cargo` |
 
 ## Campos do Funcionário
 
