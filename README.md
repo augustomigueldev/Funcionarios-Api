@@ -52,26 +52,32 @@ funcionarios_project/
     ├── admin.py        ← painel admin
     ├── migrations/     ← histórico do banco
     └── templates/      ← telas HTML
+        ├── base.html
+        ├── login.html
         ├── listarFuncionarios.html
         ├── cadastroFuncionario.html
         ├── editarFuncionario.html
         ├── listarCargos.html
-        └── cadastroCargo.html
+        ├── cadastroCargo.html
+        └── editarCargo.html
 ```
 
 ---
 
 ## Rotas disponíveis
-
-| URL | O que faz |
-|-----|-----------|
-| `/funcionarios/listar` | Lista todos os funcionários |
-| `/funcionarios/cadastro` | Cadastra novo funcionário |
-| `/funcionarios/editar/<id>` | Edita um funcionário |
-| `/funcionarios/excluir/<id>` | Exclui um funcionário |
-| `/funcionarios/cargos` | Lista cargos |
-| `/funcionarios/cadastroCargo` | Cadastra novo cargo |
-
+|---------------------------------------------------------------------------------------|
+| URL                            | O que faz                   | Permissão necessária |
+|-----|--------------------------|-----------------------------|----------------------|
+| /login                         | Tela de login               | Pública              |
+| /logout                        | Encerra a sessão            | Autenticado          |
+| /funcionarios/listar           | Lista todos os funcionários | Autenticado          |
+| /funcionarios/cadastro         | Cadastra novo funcionário   | `add_funcionario`    |
+| /funcionarios/editar/<id>      | Edita um funcionário        | `change_funcionario` |
+| /funcionarios/excluir/<id>     | Exclui um funcionário       | `delete_funcionario` |
+| /funcionarios/cargos           | Lista cargos                | Autenticado          |
+| /funcionarios/cadastroCargo    | Cadastra novo cargo         | `add_cargo`          |
+| /funcionarios/editarCargo/<id> | Edita um cargo              | `change_cargo`       |
+|---------------------------------------------------------------------------------------|
 ---
 
 ## Campos do Funcionário
