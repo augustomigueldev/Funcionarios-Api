@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-funcionarios-projeto-2bimestre-chave-secreta-123'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['augusto4d.pythonanywhere.com']
+ALLOWED_HOSTS = ['augusto4d.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'funcionarios',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,
+        }
     }
 }
 

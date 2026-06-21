@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db import IntegrityError
+from django.contrib import messages
 from .models import Funcionario, Cargo
+from rest_framework import viewsets
+from .serializers import FuncionarioSerializer, CargoSerializer
 
 
 def login_view(request):
@@ -56,18 +60,23 @@ def cadastroFuncionario(request):
         cargo_id = request.POST.get('cargo')
         cargo = Cargo.objects.get(id=cargo_id)
 
-        novo_funcionario = Funcionario(
-            nome=nome,
-            cpf=cpf,
-            email=email,
-            telefone=telefone,
-            data_admissao=data_admissao,
-            salario=salario,
-            cargo=cargo
-        )
-        novo_funcionario.save()
-
-        return HttpResponseRedirect('/funcionarios/listar')
+        try:
+            novo_funcionario = Funcionario(
+                nome=nome,
+                cpf=cpf,
+                email=email,
+                telefone=telefone,
+                data_admissao=data_admissao,
+                salario=salario,
+                cargo=cargo
+            )
+            novo_funcionario.save()
+            messages.success(request, 'Funcionário cadastrado com sucesso!')
+            return HttpResponseRedirect('/funcionarios/listar')
+        except IntegrityError:
+            messages.error(request, 'Já existe um funcionário cadastrado com este CPF, E-mail ou Telefone.')
+            cargos = Cargo.objects.all()
+            return render(request, "cadastroFuncionario.html", {'cargos': cargos})
 
     cargos = Cargo.objects.all()
     return render(request, "cadastroFuncionario.html", {'cargos': cargos})
@@ -112,19 +121,42 @@ def editarFuncionario(request, id):
         salario = request.POST.get('salario')
         cargo = Cargo.objects.get(id=request.POST.get('cargo'))
 
-        func = Funcionario.objects.get(id=id)
-        func.nome = nome
-        func.cpf = cpf
-        func.email = email
-        func.telefone = telefone
-        func.data_admissao = data_admissao
-        func.salario = salario
-        func.cargo = cargo
-        func.save()
-
-        return HttpResponseRedirect('/funcionarios/listar')
+        try:
+            func = Funcionario.objects.get(id=id)
+            func.nome = nome
+            func.cpf = cpf
+            func.email = email
+            func.telefone = telefone
+            func.data_admissao = data_admissao
+            func.salario = salario
+            func.cargo = cargo
+            func.save()
+            messages.success(request, 'Funcionário atualizado com sucesso!')
+            return HttpResponseRedirect('/funcionarios/listar')
+        except IntegrityError:
+            messages.error(request, 'Já existe outro funcionário cadastrado com este CPF, E-mail ou Telefone.')
+            funcionario = Funcionario.objects.get(id=id)
+            cargos = Cargo.objects.all()
+            return render(request, "editarFuncionario.html", {'funcionario': funcionario, 'cargos': cargos})
     else:
         funcionario = Funcionario.objects.get(id=id)
         cargos = Cargo.objects.all()
 
     return render(request, "editarFuncionario.html", {'funcionario': funcionario, 'cargos': cargos})
+
+
+@permission_required('funcionarios.delete_cargo', login_url='/funcionarios/cargos')
+def excluirCargo(request, id):
+    cargo = Cargo.objects.get(id=id)
+    cargo.delete()
+    return HttpResponseRedirect('/funcionarios/cargos')
+
+
+class CargoViewSet(viewsets.ModelViewSet):
+    queryset = Cargo.objects.all()
+    serializer_class = CargoSerializer
+
+
+class FuncionarioViewSet(viewsets.ModelViewSet):
+    queryset = Funcionario.objects.all()
+    serializer_class = FuncionarioSerializer

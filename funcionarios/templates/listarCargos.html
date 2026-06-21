@@ -10,7 +10,7 @@
       <tr>
         <th>ID</th>
         <th>Nome do Cargo</th>
-        {% if perms.funcionarios.change_cargo %}<th>Ação</th>{% endif %}
+        {% if perms.funcionarios.change_cargo or perms.funcionarios.delete_cargo %}<th>Ação</th>{% endif %}
       </tr>
     </thead>
     <tbody>
@@ -18,8 +18,15 @@
       <tr>
         <td>{{ cargo.id }}</td>
         <td>{{ cargo.nome }}</td>
-        {% if perms.funcionarios.change_cargo %}
-        <td><a href="/funcionarios/editarCargo/{{ cargo.id }}" class="btn btn-secondary btn-sm">Editar</a></td>
+        {% if perms.funcionarios.change_cargo or perms.funcionarios.delete_cargo %}
+        <td>
+          {% if perms.funcionarios.change_cargo %}
+          <a href="/funcionarios/editarCargo/{{ cargo.id }}" class="btn btn-secondary btn-sm">Editar</a>
+          {% endif %}
+          {% if perms.funcionarios.delete_cargo %}
+          <a href="/funcionarios/excluirCargo/{{ cargo.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este cargo?');">Excluir</a>
+          {% endif %}
+        </td>
         {% endif %}
       </tr>
       {% empty %}
