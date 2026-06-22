@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.db import IntegrityError
 from django.contrib import messages
 from .models import Funcionario, Cargo
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .serializers import FuncionarioSerializer, CargoSerializer
 
 
@@ -155,8 +155,10 @@ def excluirCargo(request, id):
 class CargoViewSet(viewsets.ModelViewSet):
     queryset = Cargo.objects.all()
     serializer_class = CargoSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class FuncionarioViewSet(viewsets.ModelViewSet):
     queryset = Funcionario.objects.all()
     serializer_class = FuncionarioSerializer
+    permission_classes = [permissions.IsAuthenticated]
